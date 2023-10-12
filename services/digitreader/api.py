@@ -11,6 +11,22 @@ model = models.load_model('handwriting.keras')
 
 app = FastAPI()
 
+def most_common(lst):
+    flatList = [el for sublist in lst for el in sublist]
+    return max(flatList, key=flatList.count)
+
+
+def handleImage(src):
+    pic = numpy.asarray(Image.open(src).convert('L').resize((28, 28)))
+    bg = most_common(pic)
+    print(bg)
+    for i, row in enumerate(pic):
+        for j, v in enumerate(row):
+            if v == bg:
+                pic[i][j] = 0
+            else:
+                pic[i][j] = 255
+    return pic
 
 @app.get('/')
 async def getHome():
@@ -25,7 +41,9 @@ async def readImage(req: Request):
     fo.write(content)
     fo.close()
 
-    img = numpy.asarray(Image.open(dst), float)
+    pic = handleImage(dst)
+
+    img = numpy.asarray(pic, float)
     img = numpy.expand_dims(img, axis=0)
     img = (img/255)-0.5
     img = numpy.expand_dims(img, axis=3)
