@@ -33,7 +33,7 @@ async def getHome():
     return FileResponse('index.html')
 
 
-@app.post('/images')
+@app.post('/')
 async def readImage(req: Request):
     content = await req.body()
     dst = str(time.time())+'.png'
