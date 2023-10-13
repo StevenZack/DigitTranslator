@@ -1,10 +1,10 @@
-FROM python:3.10.13-slim
+FROM zigzigcheers/aws-fastapi
 
-WORKDIR /app
+WORKDIR /root
 
 ADD translator.py .
-
-RUN pip install "uvicorn[standard]" fastapi boto3
+ADD index.html .
+ADD .aws .aws
 
 EXPOSE 8080
 

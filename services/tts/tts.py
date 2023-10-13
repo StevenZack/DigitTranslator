@@ -7,6 +7,7 @@ from botocore.response import StreamingBody
 
 app = FastAPI()
 
+# https://docs.aws.amazon.com/polly/latest/dg/API_SynthesizeSpeech.html#polly-SynthesizeSpeech-request-LanguageCode
 
 @app.post('/')
 async def textToSpeach(text: Annotated[str, Form()], languageCode: Annotated[str, Form()]):

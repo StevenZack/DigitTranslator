@@ -1,10 +1,9 @@
-FROM python:3.10.13-alpine
+FROM zigzigcheers/aws-fastapi
 
-WORKDIR /app
+WORKDIR /root
 
-ADD tss.py .
-
-RUN pip install "uvicorn[standard]" fastapi boto3
+ADD tts.py .
+ADD .aws .aws
 
 EXPOSE 8080
 
